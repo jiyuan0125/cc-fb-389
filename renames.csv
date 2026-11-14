@@ -1,0 +1,9 @@
+旧表名,新表名
+dim_creator,dim_creator_profile
+dw_live_danmu,dwd_danmu_message
+dwd_cmmt_rec,dwd_comment_record
+dwd_like_evt,dwd_like_event
+dwd_share_clk,dwd_share_click
+dwd_usr_act,dwd_user_action_event
+dws_gift_stat,dws_gift_summary
+dws_watch_min,dws_watch_duration
