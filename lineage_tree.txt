@@ -1,0 +1,105 @@
+直播弹幕接入 [k01]
+  ods_danmu_stream [b26]
+礼物流水接入 [k02]
+  ods_gift_flow [b08]
+评论消息接入 [k03]
+  ods_comment_msg [b10]
+观看行为接入 [k04]
+  ods_share_log [b06]
+  ods_watch_event [b36]
+  ods_member_info [b39]
+弹幕消息清洗 [k05]
+  dwd_danmu_message [b12]（旧名: dw_live_danmu）
+    弹幕主题聚合 [k12]
+      dws_danmu_keyword [b15]
+      dws_danmu_topic [b35]
+      弹幕密度 [q01]
+    评论质量分析 [k19]
+      dm_comment_quality [b33]
+      dm_comment_hot [b45]
+      评论浏览率 [q09]
+      互动率 [q15]
+    弹幕情感分析 [k22]
+      dm_danmu_sentiment [b07]
+      弹幕发送率 [q07]
+    数据质量校验 [k30]
+      app_quality_check [b31]
+  dwd_danmu_blacklist [b18]
+礼物流水清洗 [k06]
+  dwd_gift_record [b43]
+评论内容清洗 [k07]
+  dwd_comment_record [b32]（旧名: dwd_cmmt_rec）
+    内容运营看板 [k27]
+      app_ops_board [b16]
+观看行为清洗 [k08]
+  dwd_watch_behavior [b01]
+  dwd_user_action_event [b11]（旧名: dwd_usr_act）
+    互动事实汇总 [k11]
+      dws_interaction_fact [b03]
+        直播互动分析 [k17]
+          dm_live_interaction [b42]
+          完播率 [q12]
+          互动率 [q14]
+        短视频播放分析 [k18]
+          dm_video_completion [b27]
+          dim_video [b38]
+          dm_video_play [b49]
+          完播率 [q13]
+        互动日报生成 [k25]
+          app_daily_detail [b09]
+          app_daily_report [b23]
+      数据及时率 [q04]
+    观众画像分析 [k21]
+      dm_audience_profile [b05]
+      dim_audience_tag [b48]
+    增长实验统计 [k29]
+      app_growth_exp [b28]
+      点击率 [q17]
+  dwd_share_click [b41]（旧名: dwd_share_clk）
+    分享行为汇总 [k15]
+      dws_share_summary [b25]
+      分享率 [q02]
+    内容热度分析 [k24]
+      dm_content_heat [b04]
+      内容新鲜度 [q11]
+      点击率 [q16]
+异常流量过滤 [k09]
+  dwd_abnormal_traffic [b22]
+账号信息补全 [k10]
+  dim_creator_profile [b13]（旧名: dim_creator）
+    主播表现分析 [k20]
+      dm_anchor_perf [b24]
+      dm_anchor_trend [b30]
+      主播活跃度 [q10]
+    主播周报生成 [k26]
+      app_anchor_weekly [b52]
+  dwd_like_event [b46]（旧名: dwd_like_evt）
+    点赞行为汇总 [k16]
+      dws_like_summary [b44]
+      点赞率 [q03]
+  dwd_account_profile [b47]
+礼物榜单汇总 [k13]
+  dws_gift_summary [b19]（旧名: dws_gift_stat）
+    礼物效果分析 [k23]
+      dm_gift_effect [b50]
+      礼物渗透率 [q08]
+  dws_gift_rank [b29]
+  礼物峰值 [q05]
+观看时长汇总 [k14]
+  dws_watch_duration [b51]（旧名: dws_watch_min）
+  人均观看时长 [q06]
+风控名单生成 [k28]
+  app_risk_list [b53]
+  风控命中率 [q18]
+
+说明:
+  1. 旧名归一: renames.csv 中 8 个旧表名已并入对应新表, 同一节点只出现一次。
+     合并明细: dws_watch_min(b02)→dws_watch_duration(b51); dwd_share_clk(b14)→dwd_share_click(b41); dwd_like_evt(b17)→dwd_like_event(b46); dws_gift_stat(b20)→dws_gift_summary(b19); dwd_usr_act(b21)→dwd_user_action_event(b11); dim_creator(b34)→dim_creator_profile(b13); dwd_cmmt_rec(b37)→dwd_comment_record(b32); dw_live_danmu(b40)→dwd_danmu_message(b12)
+  2. 挂载口径: 一个节点既是某任务的产出、又是别的任务的输入时, 挂在“产出一侧”, 即作为其产出任务的子节点, 其下游任务再作为该节点的子节点缩进一层。
+     每个节点在树中只出现一次。资产有多个产出任务时取编号最小者: 无
+     任务有多个上游时挂到编号最小的上游节点: k11, k17, k18, k19, k20, k21, k22, k24, k25, k26, k27, k29
+     其余非首选消费边不重复画进树, 完整边集以 edges.csv 为准。
+  3. 计数: 节点 93（任务 30, 表 45, 指标 18）; 归一后边 101; 树中连线 80; 未画出的非首选边 21。
+     对齐: 树中连线 80 + 未画出边 21 = edges.csv 行数 101; 树中连线 + 根节点 13 = 节点数 93。
+  4. 同名节点以编号区分: 完播率(q12,q13); 互动率(q14,q15); 点击率(q16,q17)。
+  5. 输出按编号排序、不含时间戳, 同一输入重跑内容不变。
